@@ -9,14 +9,18 @@ import './index.css'
 
 const App = () => (
   <Editor 
+    initialValue={[
+      {block: 'text', data: 'Initial data of block number 1'},
+      {block: 'text', data: 'Another text block with data'},
+      {block: 'text', data: ''},
+      {block: 'text', data: 'Block after an empty block'},
+    ]}
     plugins={[HalkoTextBlock, HalkoImageBlock]} 
     onInit={api => {
       api.createEntity(HalkoTextBlock(api))
     }}
     onChange={api => {
-      const content = api.getContent()
-      
-      console.warn(content)
+      console.warn(api.getContent())
     }}
   />
 )

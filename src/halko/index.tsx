@@ -11,20 +11,32 @@ export {Block, Entity, EditorApi}
 
 interface Props {
   plugins: EditorPlugin[]
-  onInit: (api: EditorApi) => void
-  onChange: (api: EditorApi) => void
+  initialValue?: {
+    block: string
+    data: any
+  }[]
+  onInit?: (api: EditorApi) => void
+  onChange?: (api: EditorApi) => void
 }
 
 interface State {
+  wasInitialised: boolean
   entities: Entity[]
 }
 
 export class Editor extends React.Component<Props, State> {
   state: State = {
+    wasInitialised: false,
     entities: []
   }
 
-  componentDidMount() {
+  async componentDidMount() {
+    if (this.props.initialValue) {
+      await this.setInitialValue(this.props.initialValue)
+    }
+
+    this.setState({wasInitialised: true})
+    
     if (this.props.onInit) {
       this.props.onInit(this.api)
     }
@@ -39,14 +51,33 @@ export class Editor extends React.Component<Props, State> {
     )
   }
 
+  private setInitialValue = async (initialValue) => {
+    initialValue.forEach(item => {
+      const entity = this.createEntityByBlockName(item.block)
+
+      entity.updateData(item.data)
+    })
+  }
+
   private triggerOnChange = () => {
-    if (this.props.onChange) {
+    if (this.props.onChange && this.state.wasInitialised) {
       this.props.onChange(this.api)
+    }
+  }
+
+  private createEntityByBlockName = (blockName: string, data?: any) => {
+    const block = this.blocks.find(item => item.id === blockName)
+
+    if (block) {
+      return this.createEntity(block)
+    } else {
+      throw new Error(`Invalid block: ${blockName}`)
     }
   }
 
   private createEntity = (block: Block) => {
     const entity = new Entity(this.api, {block})
+    
     const changeState = (state: State) => ({
       entities: state.entities.concat([entity])
     })
@@ -57,21 +88,21 @@ export class Editor extends React.Component<Props, State> {
   }
 
   private updateEntity = (entity: Entity) => {
-    const state = {
-      entities: this.state.entities.map(item => item.id === entity.id ? entity : item)
-    }
+    const changeState = (state: State) => ({
+      entities: state.entities.map(item => item.id === entity.id ? entity : item)
+    })
 
-    this.setState(state, this.triggerOnChange)
+    this.setState(changeState, this.triggerOnChange)
 
     return entity
   }
 
   private removeEntity = (entity: Entity) => {
-    const state = {
-      entities: this.state.entities.filter(item => item.id !== entity.id)
-    }
+    const changeState = (state: State) => ({
+      entities: state.entities.filter(item => item.id !== entity.id)
+    })
 
-    this.setState(state, this.triggerOnChange)
+    this.setState(changeState, this.triggerOnChange)
   }
 
   private getEntities = () => {
