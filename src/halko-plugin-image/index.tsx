@@ -35,18 +35,12 @@ class ImageBlock extends React.Component<Props, State> {
 
     if (previewUrl) {
       return (
-        <ImagePreview 
-          innerRef={entity.ref} 
-          src={previewUrl}
-        />
+        <ImagePreview innerRef={entity.ref} src={previewUrl} />
       )
     }
 
     return (
-      <ImageInput
-        innerRef={entity.ref}
-        onChange={this.handleChange} 
-      />
+      <ImageInput innerRef={entity.ref} onChange={this.handleChange} />
     )
   }
 }
