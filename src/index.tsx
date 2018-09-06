@@ -10,8 +10,13 @@ import './index.css'
 const App = () => (
   <Editor 
     plugins={[HalkoTextBlock, HalkoImageBlock]} 
-    onInit={(api) => {
+    onInit={api => {
       api.createEntity(HalkoTextBlock(api))
+    }}
+    onChange={api => {
+      const content = api.getContent()
+      
+      console.warn(content)
     }}
   />
 )

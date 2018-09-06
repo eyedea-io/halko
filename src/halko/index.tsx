@@ -12,6 +12,7 @@ export {Block, Entity, EditorApi}
 interface Props {
   plugins: EditorPlugin[]
   onInit: (api: EditorApi) => void
+  onChange: (api: EditorApi) => void
 }
 
 interface State {
@@ -38,36 +39,55 @@ export class Editor extends React.Component<Props, State> {
     )
   }
 
+  private triggerOnChange = () => {
+    if (this.props.onChange) {
+      this.props.onChange(this.api)
+    }
+  }
+
   private createEntity = (block: Block) => {
     const entity = new Entity(this.api, {block})
-
-    this.setState((state: State) => ({
+    const changeState = (state: State) => ({
       entities: state.entities.concat([entity])
-    }))
+    })
+
+    this.setState(changeState, this.triggerOnChange)
 
     return entity
   }
 
   private updateEntity = (entity: Entity) => {
-    this.setState({
+    const state = {
       entities: this.state.entities.map(item => item.id === entity.id ? entity : item)
-    })
+    }
+
+    this.setState(state, this.triggerOnChange)
 
     return entity
   }
 
   private removeEntity = (entity: Entity) => {
-    this.setState({
+    const state = {
       entities: this.state.entities.filter(item => item.id !== entity.id)
-    })
+    }
+
+    this.setState(state, this.triggerOnChange)
   }
 
   private getEntities = () => {
     return this.state.entities
   }
 
+  private getContent = () => {
+    return this.state.entities.map(item => ({
+      block: item.block.id,
+      data: item.data
+    }))
+  }
+
   private get api(): EditorApi {
     return {
+      getContent: this.getContent,
       getEntities: this.getEntities,
       createEntity: this.createEntity,
       removeEntity: this.removeEntity,
