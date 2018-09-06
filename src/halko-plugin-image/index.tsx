@@ -20,11 +20,11 @@ class ImageBlock extends React.Component<Props, State> {
 
     if (files && files[0]) {
       var reader = new FileReader()
-  
+
       reader.onload = (event: any) => {
         this.setState({previewUrl: event.target && event.target.result})
       }
-  
+
       reader.readAsDataURL(files[0])
     }
   }
@@ -54,7 +54,7 @@ export const HalkoImageBlock = (api: EditorApi): Block => ({
   component: ImageBlock
 })
 
-/* <Image 
+/* <Image
   src="http://via.placeholder.com/350x150"
   innerRef={entity.ref}
   onKeyDown={(e: React.KeyboardEvent<HTMLImageElement>) => {

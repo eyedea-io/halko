@@ -22,8 +22,8 @@ class TextBlock extends React.Component<{
 
     return (
       <TextArea
-        placeholder="Type here..." 
-        value={entity.data} 
+        placeholder="Type here..."
+        value={entity.data}
         autoFocus={true}
         innerRef={entity.ref}
         onChange={(e: React.FormEvent<HTMLTextAreaElement>) => {
@@ -56,11 +56,15 @@ class TextBlock extends React.Component<{
             next.remove()
             e.preventDefault()
           }
-        }} 
+        }}
       />
     )
   }
 }
+
+const TextBlockRenderer = ({data}) => (
+  <p>{data}</p>
+)
 
 export const HalkoTextBlock = (api: EditorApi): Block => ({
   id: 'text',
@@ -68,6 +72,6 @@ export const HalkoTextBlock = (api: EditorApi): Block => ({
   title: 'Add rich text block',
   isLeaf: false,
   data: '',
-  component: TextBlock
+  component: TextBlock,
+  renderer: TextBlockRenderer
 })
-// React.forwardRef((entity: Entity, ref: any) => )

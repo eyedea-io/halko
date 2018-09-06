@@ -14,13 +14,13 @@ export class Toolbar extends React.Component<Props> {
     if (blocks.length === 0) {
       return null
     }
-    
+
     return (
       <ToolbarInner>
         {blocks.map(item => (
-          <ToolbarItem 
-            key={item.title} 
-            title={item.title} 
+          <ToolbarItem
+            key={item.title}
+            title={item.title}
             onClick={() => createEntity(item)}
           >
             {item.label}

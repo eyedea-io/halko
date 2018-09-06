@@ -9,6 +9,9 @@ export interface Block {
   isInline?: boolean
   isBlock?: boolean
   isLeaf?: boolean
+  renderer?: React.ComponentType<{
+    data: any
+  }>
   component: React.ComponentType<{
     entity: Entity
   }>
