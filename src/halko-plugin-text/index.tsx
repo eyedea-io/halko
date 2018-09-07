@@ -25,6 +25,7 @@ class TextBlock extends React.Component<{
         placeholder="Type here..."
         value={entity.data}
         autoFocus={true}
+        rows={1}
         innerRef={entity.ref}
         onChange={(e: React.FormEvent<HTMLTextAreaElement>) => {
           entity.updateData(e.currentTarget.value)
