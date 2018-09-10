@@ -14,13 +14,13 @@ const PLUGINS: any = [
       const formData = new FormData()
       formData.append('file', file)
 
-      await new Promise(resolve => setTimeout(resolve, 2000))
+      await new Promise(resolve => setTimeout(resolve, 1000))
       onUploadProgress({total: 2000, loaded: 500})
-      await new Promise(resolve => setTimeout(resolve, 2000))
+      await new Promise(resolve => setTimeout(resolve, 1000))
       onUploadProgress({total: 2000, loaded: 1000})
-      await new Promise(resolve => setTimeout(resolve, 2000))
+      await new Promise(resolve => setTimeout(resolve, 1000))
       onUploadProgress({total: 2000, loaded: 1500})
-      await new Promise(resolve => setTimeout(resolve, 2000))
+      await new Promise(resolve => setTimeout(resolve, 1000))
       onUploadProgress({total: 2000, loaded: 2000})
 
       // const url = await axios.post('syncano upload endpoint', formData, {
@@ -31,7 +31,7 @@ const PLUGINS: any = [
       // })
       // return url
 
-      return `https://placekitten.com/408/287`
+      return `https://i.imgur.com/LoudX6o.jpg`
     }
   }]
 ]
@@ -41,6 +41,7 @@ class App extends React.Component<{}, {value: any}> {
     value: [
       {block: 'text', data: 'Initial data of block number 1'},
       {block: 'image', data: 'https://placekitten.com/800/600'},
+      {block: 'image', data: ''},
       {block: 'text', data: 'Another text block with data'},
       {block: 'text', data: ''},
       {block: 'text', data: 'Block after an empty block'},

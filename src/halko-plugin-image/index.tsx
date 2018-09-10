@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { EditorApi, Block, Entity } from 'halko'
-import { ImageInput, ImagePreview, ImageWrapper, ProgressBar, ProgressBarFill, Image } from './styled'
+import { ImageInput, ImagePreview, ImageWrapper, ProgressBar, ProgressBarFill, Image, ImageDropArea } from './styled'
 
 interface Config {
   handleUpload?: (file: File, {}: {
@@ -15,6 +15,7 @@ interface Props {
 
 interface State {
   previewUrl: string
+  isDropZoneActive: boolean
   uploadProgress: number
 }
 
@@ -23,38 +24,12 @@ class ImageBlock extends React.Component<Props, State> {
 
   state = {
     previewUrl: '',
+    isDropZoneActive: false,
     uploadProgress: -1
   }
 
   componentDidMount() {
     this.config = this.props.config || {}
-  }
-
-  handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const {files} = e.currentTarget
-    const {handleUpload} = this.config
-
-    if (files && files[0]) {
-      var reader = new FileReader()
-
-      reader.onload = (event: any) => {
-        this.setState({previewUrl: event.target && event.target.result})
-      }
-
-      reader.readAsDataURL(files[0])
-    }
-
-    if (typeof handleUpload === 'function' && files) {
-      const url = await handleUpload(files[0], {
-        onUploadProgress: (progressEvent: ProgressEvent) => {
-          const uploadProgress = Math.round((progressEvent.loaded * 100) / progressEvent.total)
-
-          this.setState({uploadProgress})
-        }
-      })
-
-      this.props.entity.updateData(url)
-    }
   }
 
   render() {
@@ -79,8 +54,68 @@ class ImageBlock extends React.Component<Props, State> {
     }
 
     return (
-      <ImageInput innerRef={entity.ref} onChange={this.handleChange} />
+      <ImageDropArea
+        onDragOver={this.handleDragEnter}
+        onDragEnd={this.handleDragExit}
+        onDragExit={this.handleDragExit}
+        onDragLeave={this.handleDragExit}
+        onDrop={this.handleDrop}
+        isActive={this.state.isDropZoneActive}
+      >
+        Drop your image here or click to select from disc.
+        <ImageInput innerRef={entity.ref} onChange={this.handleChange} />
+      </ImageDropArea>
     )
+  }
+
+  private handleDragEnter = (event) => {
+    this.setState({isDropZoneActive: true})
+    event.preventDefault()
+  }
+
+  private handleDragExit = (event) => {
+    this.setState({isDropZoneActive: false})
+    event.preventDefault()
+  }
+
+  private handleDrop = (event: React.DragEvent<HTMLLabelElement>) => {
+    event.preventDefault()
+
+    this.upload(event.dataTransfer.files)
+  }
+
+  private upload = async (files: FileList) => {
+    const {handleUpload} = this.config
+
+    if (files && files[0]) {
+      var reader = new FileReader()
+
+      reader.onload = (event: any) => {
+        this.setState({previewUrl: event.target && event.target.result})
+      }
+
+      reader.readAsDataURL(files[0])
+    }
+
+    if (typeof handleUpload === 'function' && files) {
+      this.setState({uploadProgress: 0})
+
+      const url = await handleUpload(files[0], {
+        onUploadProgress: (progressEvent: ProgressEvent) => {
+          const uploadProgress = Math.round((progressEvent.loaded * 100) / progressEvent.total)
+
+          this.setState({uploadProgress})
+        }
+      })
+
+      this.props.entity.updateData(url)
+    }
+  }
+
+  private handleChange = async (e: any) => {
+    const {files} = e.currentTarget
+
+    this.upload(files)
   }
 
   get isProgressBarHidden() {
