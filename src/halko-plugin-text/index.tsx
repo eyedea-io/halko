@@ -67,12 +67,13 @@ const TextBlockRenderer = ({data}) => (
   <p>{data}</p>
 )
 
-export const HalkoTextBlock = (api: EditorApi): Block => ({
+export const HalkoTextBlock = (api: EditorApi, config?: any): Block => ({
   id: 'text',
   label: 'text',
   title: 'Add rich text block',
   isLeaf: false,
   data: '',
+  config,
   component: TextBlock,
   renderer: TextBlockRenderer
 })

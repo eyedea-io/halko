@@ -6,6 +6,7 @@ export interface Block {
   label: string
   title: string
   data: any
+  config?: any
   isInline?: boolean
   isBlock?: boolean
   isLeaf?: boolean
@@ -14,5 +15,6 @@ export interface Block {
   }>
   component: React.ComponentType<{
     entity: Entity
+    config?: any
   }>
 }

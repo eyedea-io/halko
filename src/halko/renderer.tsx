@@ -2,7 +2,7 @@ import * as React from 'react'
 import { EditorPlugin } from './plugin'
 
 interface Props {
-  plugins: EditorPlugin[]
+  plugins: Array<EditorPlugin | [EditorPlugin, any]>
   value: {
     block: string
     data: any
@@ -31,6 +31,8 @@ export class Renderer extends React.Component<Props> {
   }
 
   private get blocks() {
-    return this.props.plugins.map(plugin => plugin())
+    return this.props.plugins.map(plugin =>
+      Array.isArray(plugin) ? plugin[0]() : plugin()
+    )
   }
 }

@@ -8,7 +8,7 @@ import { EditorApi } from './api'
 import { Block } from './block'
 
 interface Props {
-  plugins: EditorPlugin[]
+  plugins: Array<[EditorPlugin, any] | EditorPlugin>
   initialValue?: {
     block: string
     data: any
@@ -125,6 +125,12 @@ export class Editor extends React.Component<Props, State> {
   }
 
   private get blocks() {
-    return this.props.plugins.map(plugin => plugin(this.api))
+    return this.props.plugins.map(plugin => {
+      if (Array.isArray(plugin)) {
+        return plugin[0](this.api, plugin[1])
+      }
+
+      return plugin(this.api)
+    })
   }
 }

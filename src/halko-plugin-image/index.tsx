@@ -1,21 +1,36 @@
 import * as React from 'react'
 import { EditorApi, Block, Entity } from 'halko'
-import { ImageInput, ImagePreview } from './styled'
+import { ImageInput, ImagePreview, ImageWrapper, ProgressBar, ProgressBarFill, Image } from './styled'
+
+interface Config {
+  handleUpload?: (file: File, {}: {
+    onUploadProgress: (progressEvent: ProgressEvent) => void
+  }) => string
+}
 
 interface Props {
   entity: Entity
+  config: Config
 }
 
 interface State {
   previewUrl: string
+  uploadProgress: number
 }
 
 class ImageBlock extends React.Component<Props, State> {
+  config: Config
+
   state = {
-    previewUrl: ''
+    previewUrl: '',
+    uploadProgress: 0
   }
 
-  handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  componentDidMount() {
+    this.config = this.props.config || {}
+  }
+
+  handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const {files} = e.currentTarget
 
     if (files && files[0]) {
@@ -27,15 +42,40 @@ class ImageBlock extends React.Component<Props, State> {
 
       reader.readAsDataURL(files[0])
     }
+
+    const {handleUpload} = this.config
+
+    if (typeof handleUpload === 'function' && files) {
+      const url = await handleUpload(files[0], {
+        onUploadProgress: (progressEvent: ProgressEvent) => {
+          const uploadProgress = Math.round((progressEvent.loaded * 100) / progressEvent.total)
+
+          this.setState({uploadProgress})
+        }
+      })
+
+      this.props.entity.updateData(url)
+    }
   }
 
   render() {
     const {previewUrl} = this.state
     const {entity} = this.props
+    const url = entity.data || previewUrl
 
-    if (previewUrl) {
+    if (url) {
       return (
-        <ImagePreview innerRef={entity.ref} src={previewUrl} />
+        <ImageWrapper>
+          <ImagePreview innerRef={entity.ref} src={url} />
+
+          <ProgressBar progress={this.state.uploadProgress}>
+            <ProgressBarFill
+              style={{
+                width: `${this.state.uploadProgress}%`
+              }}
+            />
+          </ProgressBar>
+        </ImageWrapper>
       )
     }
 
@@ -43,15 +83,25 @@ class ImageBlock extends React.Component<Props, State> {
       <ImageInput innerRef={entity.ref} onChange={this.handleChange} />
     )
   }
+
+  get isProgressBarHidden() {
+    return this.state.uploadProgress === 0 || this.state.uploadProgress === 100
+  }
 }
 
-export const HalkoImageBlock = (api: EditorApi): Block => ({
+const ImageBlockRenderer = ({data}) => (
+  <Image src={data} alt=""/>
+)
+
+export const HalkoImageBlock = (api?: EditorApi, config?: any): Block => ({
   id: 'image',
   label: 'Image',
   title: 'Add image from disc',
   data: '',
   isLeaf: true,
-  component: ImageBlock
+  config,
+  component: ImageBlock,
+  renderer: ImageBlockRenderer
 })
 
 /* <Image

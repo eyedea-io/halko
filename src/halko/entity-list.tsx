@@ -10,7 +10,7 @@ export class EntityList extends React.Component<Props> {
     return (
       <div>
         {this.props.entities.map(item => (
-          <item.block.component key={item.id} entity={item} />
+          <item.block.component key={item.id} entity={item} config={item.block.config} />
         ))}
       </div>
     )
