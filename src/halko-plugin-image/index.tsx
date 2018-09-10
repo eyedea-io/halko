@@ -23,7 +23,7 @@ class ImageBlock extends React.Component<Props, State> {
 
   state = {
     previewUrl: '',
-    uploadProgress: 0
+    uploadProgress: -1
   }
 
   componentDidMount() {
@@ -32,6 +32,7 @@ class ImageBlock extends React.Component<Props, State> {
 
   handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const {files} = e.currentTarget
+    const {handleUpload} = this.config
 
     if (files && files[0]) {
       var reader = new FileReader()
@@ -42,8 +43,6 @@ class ImageBlock extends React.Component<Props, State> {
 
       reader.readAsDataURL(files[0])
     }
-
-    const {handleUpload} = this.config
 
     if (typeof handleUpload === 'function' && files) {
       const url = await handleUpload(files[0], {

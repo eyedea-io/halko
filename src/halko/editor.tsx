@@ -107,6 +107,20 @@ export class Editor extends React.Component<Props, State> {
     return this.state.entities
   }
 
+  private moveEntity = (entity, newIndex) => {
+    if (newIndex > this.state.entities.length) {
+      return
+    }
+
+    const currentIndex = this.state.entities.findIndex(item => item.id === entity.id)
+    const {entities} = this.state
+
+    entities.splice(currentIndex, 1)
+    entities.splice(newIndex, 0, entity)
+
+    this.setState({entities})
+  }
+
   private getContent = () => {
     return this.state.entities.map(item => ({
       block: item.block.id,
@@ -120,7 +134,8 @@ export class Editor extends React.Component<Props, State> {
       getEntities: this.getEntities,
       createEntity: this.createEntity,
       removeEntity: this.removeEntity,
-      updateEntity: this.updateEntity
+      updateEntity: this.updateEntity,
+      moveEntity: this.moveEntity
     }
   }
 

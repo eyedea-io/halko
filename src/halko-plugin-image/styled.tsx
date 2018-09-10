@@ -18,6 +18,10 @@ export const ImagePreview = styled.img.attrs({
   margin: 16px 0;
   width: 100%;
   display: block;
+
+  &:focus {
+    outline: 4px solid #111;
+  }
 `
 
 export const ImageWrapper = styled.div`

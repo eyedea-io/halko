@@ -22,10 +22,26 @@ export class Entity {
   get isInline() { return this.block.isInline }
   get isBlock() { return this.block.isBlock }
   get isLeaf() { return this.block.isLeaf }
+  get canBeMovedUp() { return !!this.getSiblings().prev }
+  get canBeMovedDown() { return !!this.getSiblings().next }
 
   updateData = (newData: any) => {
     this.data = newData
     this.api.updateEntity(this)
+  }
+
+  moveUp = () => {
+    const entities = this.api.getEntities()
+    const entityIndex = entities.findIndex(item => item.id === this.id)
+
+    this.api.moveEntity(this, entityIndex - 1)
+  }
+
+  moveDown = () => {
+    const entities = this.api.getEntities()
+    const entityIndex = entities.findIndex(item => item.id === this.id)
+
+    this.api.moveEntity(this, entityIndex + 1)
   }
 
   getSiblings = () => {
