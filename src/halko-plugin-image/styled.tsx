@@ -38,16 +38,34 @@ export const ImageDropArea = styled.label.attrs({})<{
   transition: border-color .25s ease, color .25s ease;
   box-sizing: border-box;
   border-radius: 3px;
-  border: 1px dashed ${_ => _.isActive ? '#000' : '#e5e5e5'};
+  border: 1px dashed ${_ => _.isActive ? '#77E1A3' : '#E6E8EC'};
   padding: 32px;
   text-align: center;
-  color: #999;
+  color: #666;
   cursor: pointer;
   margin: 16px 0;
 
+  svg {
+    margin-bottom: 8px;
+  }
+
+  a {
+    color: #77E1A3;
+    font-weight: bold;
+    transition: .25s ease;
+  }
+
+  a:hover {
+    color: #333;
+  }
+
+  a {
+    color: #77E1A3;
+  }
+
   &:hover {
     color: #333;
-    border-color: #000;
+    border-color: #77E1A3;
   }
 `
 

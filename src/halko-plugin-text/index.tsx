@@ -3,11 +3,11 @@ import { EditorApi, Block, Entity } from 'halko'
 import { EditorState } from 'draft-js'
 import Editor from 'draft-js-plugins-editor'
 import createInlineToolbarPlugin from 'draft-js-inline-toolbar-plugin'
-import 'draft-js-inline-toolbar-plugin/lib/plugin.css'
 import { stateToHTML } from 'draft-js-export-html'
 import { stateFromHTML } from 'draft-js-import-html'
 import { EditorWrapper } from './styled'
 import { Parser as HtmlToReactParser } from 'html-to-react'
+import './toolbar.css'
 
 interface Props {
   entity: Entity
