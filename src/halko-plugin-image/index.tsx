@@ -123,9 +123,9 @@ class ImageBlock extends React.Component<Props, State> {
   }
 }
 
-const ImageBlockRenderer = ({data}) => (
+const ImageBlockRenderer = ({data}) => data ? (
   <Image src={data} alt=""/>
-)
+) : null
 
 export const HalkoImageBlock = (api?: EditorApi, config?: any): Block => ({
   id: 'image',

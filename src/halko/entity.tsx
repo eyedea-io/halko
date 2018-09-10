@@ -30,6 +30,10 @@ export class Entity {
     this.api.updateEntity(this)
   }
 
+  setTooltipVisibility = (visible) => {
+    this.api.setTooltipVisibility(visible)
+  }
+
   moveUp = () => {
     const entities = this.api.getEntities()
     const entityIndex = entities.findIndex(item => item.id === this.id)

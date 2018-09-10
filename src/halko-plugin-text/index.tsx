@@ -1,71 +1,61 @@
 import * as React from 'react'
 import { EditorApi, Block, Entity } from 'halko'
-import { TextArea } from './styled'
-import * as autosize from 'autosize'
+import { EditorState } from 'draft-js'
+import Editor from 'draft-js-plugins-editor'
+import createInlineToolbarPlugin from 'draft-js-inline-toolbar-plugin'
+import 'draft-js-inline-toolbar-plugin/lib/plugin.css'
+import { stateToHTML } from 'draft-js-export-html'
+import { stateFromHTML } from 'draft-js-import-html'
+import { EditorWrapper } from './styled'
+import { Parser as HtmlToReactParser } from 'html-to-react'
 
-const KEY_CODES = {
-  backspace: 8,
-  delete: 46,
-  up: 38,
-  down: 40,
+interface Props {
+  entity: Entity
 }
 
-class TextBlock extends React.Component<{
-  entity: Entity
-}> {
-  componentDidMount() {
-    autosize(this.props.entity.ref.current as Element)
+class TextBlock extends React.Component<Props> {
+  state = {
+    editorState: EditorState.createWithContent(
+      stateFromHTML(this.props.entity.data)
+    ),
+  }
+  inlineToolbarPlugin: any
+
+  constructor(props: Props) {
+    super(props)
+    this.inlineToolbarPlugin = createInlineToolbarPlugin()
+  }
+
+  handleChange = (editorState: EditorState) => {
+    this.setState({editorState})
+
+    const html = stateToHTML(editorState.getCurrentContent())
+    const selection = editorState.getSelection()
+    const showTooltip = selection.getAnchorOffset() === selection.getFocusOffset()
+
+    this.props.entity.setTooltipVisibility(showTooltip)
+    this.props.entity.updateData(html)
   }
 
   render() {
-    const {entity} = this.props
-
     return (
-      <TextArea
-        placeholder="Type here..."
-        value={entity.data}
-        autoFocus={true}
-        rows={1}
-        innerRef={entity.ref}
-        onChange={(e: React.FormEvent<HTMLTextAreaElement>) => {
-          entity.updateData(e.currentTarget.value)
-        }}
-        onKeyDown={(e: React.KeyboardEvent<HTMLTextAreaElement>) => {
-          const {prev, next} = entity.getSiblings()
+      <EditorWrapper>
+        <Editor
+          editorState={this.state.editorState}
+          onChange={this.handleChange}
+          plugins={[this.inlineToolbarPlugin]}
+        />
 
-          // Remove current node if it's empty and backspace was pressed
-          if (e.keyCode === KEY_CODES.backspace &&  e.currentTarget.value === '') {
-            if (prev) { prev.focus() }
-            entity.remove()
-            e.preventDefault()
-          }
-          if (e.keyCode === KEY_CODES.down && e.currentTarget.value === '') {
-            if (next) { next.focus() }
-            e.preventDefault()
-          }
-          if (e.keyCode === KEY_CODES.up && e.currentTarget.value === '') {
-            if (prev) { prev.focus() }
-            e.preventDefault()
-          }
-        }}
-        onKeyUp={(e: React.KeyboardEvent<HTMLTextAreaElement>) => {
-          const {next} = entity.getSiblings()
-
-          // Remove next node on delete
-          if (e.keyCode === KEY_CODES.delete && next && next.isLeaf) {
-            if (next) { next.focus() }
-            next.remove()
-            e.preventDefault()
-          }
-        }}
-      />
+        {this.inlineToolbarPlugin && (
+          <this.inlineToolbarPlugin.InlineToolbar />
+        )}
+      </EditorWrapper>
     )
   }
 }
 
-const TextBlockRenderer = ({data}) => (
-  <p>{data}</p>
-)
+const htmlToReactParser = new HtmlToReactParser()
+const TextBlockRenderer = ({data}) => htmlToReactParser.parse(data) || null
 
 export const HalkoTextBlock = (api: EditorApi, config?: any): Block => ({
   id: 'text',

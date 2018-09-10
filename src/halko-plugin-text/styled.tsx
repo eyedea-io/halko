@@ -1,6 +1,13 @@
 import styled from 'styled-components'
 import * as React from 'react'
 
+export const EditorWrapper = styled.div`
+  margin: 16px 0;
+  font-size: inherit;
+  font-family: inherit;
+  display: block;
+`
+
 export const TextArea = styled.textarea.attrs({})<React.TextareaHTMLAttributes<{}>>`
   display: block;
   width: 100%;

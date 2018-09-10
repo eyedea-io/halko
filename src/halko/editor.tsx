@@ -18,12 +18,14 @@ interface Props {
 }
 
 interface State {
+  showTooltip: boolean
   wasInitialised: boolean
   entities: Entity[]
 }
 
 export class Editor extends React.Component<Props, State> {
   state: State = {
+    showTooltip: true,
     wasInitialised: false,
     entities: []
   }
@@ -43,7 +45,7 @@ export class Editor extends React.Component<Props, State> {
   render() {
     return (
       <Layout>
-        <EntityList entities={this.state.entities} />
+        <EntityList entities={this.state.entities} showTooltip={this.state.showTooltip} />
         <Toolbar blocks={this.blocks} createEntity={this.createEntity} />
       </Layout>
     )
@@ -54,6 +56,12 @@ export class Editor extends React.Component<Props, State> {
       const entity = this.createEntityByBlockName(item.block)
 
       entity.updateData(item.data)
+    })
+  }
+
+  private setTooltipVisibility = async (visible: boolean) => {
+    this.setState({
+      showTooltip: visible
     })
   }
 
@@ -135,6 +143,7 @@ export class Editor extends React.Component<Props, State> {
       createEntity: this.createEntity,
       removeEntity: this.removeEntity,
       updateEntity: this.updateEntity,
+      setTooltipVisibility: this.setTooltipVisibility,
       moveEntity: this.moveEntity
     }
   }

@@ -5,6 +5,7 @@ import { TooltipContainer } from './tooltip/styled'
 
 export interface Props {
   entities: Entity[]
+  showTooltip: boolean
 }
 
 export class EntityList extends React.Component<Props> {
@@ -13,7 +14,9 @@ export class EntityList extends React.Component<Props> {
       <div>
         {this.props.entities.map(item => (
           <TooltipContainer key={item.id}>
-            <Tooltip entity={item} config={item.block.config} />
+            {this.props.showTooltip && (
+              <Tooltip entity={item} config={item.block.config} />
+            )}
             <item.block.component entity={item} config={item.block.config} />
           </TooltipContainer>
         ))}
