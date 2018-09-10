@@ -4,7 +4,7 @@ import * as React from 'react'
 export const RemoveIcon = () => (
   <svg height="24" width="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
     <title>trash</title>
-    <g className="nc-icon-wrapper" fill="#111111">
+    <g className="nc-icon-wrapper" fill="#EB5757">
       <path d="M5 21a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V8h2V6h-5V3a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v3H3v2h2v13zm5-17h4v2h-4V4zM9 8h8v12H7V8h2z"/>
       <path d="M9 10h2v8H9zm4 0h2v8h-2z"/>
     </g>
