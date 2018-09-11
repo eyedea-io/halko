@@ -1,6 +1,6 @@
 /* tslint:disable max-line-length */
 import * as React from 'react'
-import { EditorApi, Block, Entity } from 'halko'
+import { EditorApi, Block, Entity } from '@halko/editor'
 import { ImageInput, ImagePreview, ImageWrapper, ProgressBar, ProgressBarFill, Image, ImageDropArea } from './styled'
 
 interface Config {

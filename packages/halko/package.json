@@ -1,0 +1,30 @@
+{
+  "name": "@halko/editor",
+  "description": "React components based editor.",
+  "version": "0.1.0",
+  "main": "lib/index.js",
+  "unpkg": "dist/halko.js",
+  "author": "Eyedea AS",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/eyedea/halko.git"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "prepublish": "npm run build",
+    "prebuild": "rm -rf ./dist && rm -rf ./lib",
+    "build": "webpack && npx babel src --out-dir lib --extensions .ts,.tsx"
+  },
+  "peerDependencies": {
+    "react": "16.5.0",
+    "styled-components": "3.4.6"
+  },
+  "devDependencies": {
+    "@types/react": "16.4.14",
+    "react": "16.5.0",
+    "styled-components": "3.4.6"
+  }
+}

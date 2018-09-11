@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { EditorApi, Block, Entity } from 'halko'
+import { EditorApi, Block, Entity } from '@halko/editor'
 import { EditorState } from 'draft-js'
 import Editor from 'draft-js-plugins-editor'
 import createInlineToolbarPlugin from 'draft-js-inline-toolbar-plugin'
