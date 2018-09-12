@@ -19,7 +19,7 @@ class TextBlock extends React.Component<Props> {
     ),
   }
   inlineToolbarPlugin: any
-  editor: React.RefObject<{}>;
+  editor: React.RefObject<HTMLInputElement>
 
   constructor(props: Props) {
     super(props)
@@ -28,7 +28,7 @@ class TextBlock extends React.Component<Props> {
   }
 
   componentDidMount() {
-    if (this.editor) {
+    if (this.editor.current !== null) {
       this.editor.current.focus()
     }
   }
