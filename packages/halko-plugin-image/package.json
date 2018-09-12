@@ -1,0 +1,29 @@
+{
+  "name": "@halko/plugin-image",
+  "description": "Add support for images in Halko.",
+  "version": "0.1.0",
+  "main": "lib/index.js",
+  "author": "Eyedea AS",
+  "license": "MIT",
+  "scripts": {
+    "prepublish": "npm run build",
+    "prebuild": "rm -rf ./lib",
+    "build": "npx tsc",
+    "watch": "npx tsc --watch"
+  },
+  "repository": "https://github.com/eyedea/halko/packages/halko-plugin-image",
+  "publishConfig": {
+    "access": "public"
+  },
+  "peerDependencies": {
+    "@halko/editor": "0.1.0",
+    "react": "16.5.0"
+  },
+  "devDependencies": {
+    "@halko/editor": "0.1.0",
+    "@types/node": "10.9.4",
+    "@types/react": "16.4.14",
+    "react": "16.5.0",
+    "styled-components": "3.4.6"
+  }
+}

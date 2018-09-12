@@ -1,17 +1,17 @@
 /* tslint:disable max-line-length */
 import * as React from 'react'
-import { EditorApi, Block, Entity } from 'halko'
+import { EditorApi, Block, Entity } from '@halko/editor'
 import { ImageInput, ImagePreview, ImageWrapper, ProgressBar, ProgressBarFill, Image, ImageDropArea } from './styled'
 
 interface Config {
-  handleUpload?: (file: File, {}: {
+  handleUpload?: (file: File, config: {
     onUploadProgress: (progressEvent: ProgressEvent) => void
   }) => string
 }
 
 interface Props {
   entity: Entity
-  config: Config
+  config?: Config
 }
 
 interface State {
@@ -21,7 +21,7 @@ interface State {
 }
 
 class ImageBlock extends React.Component<Props, State> {
-  config: Config
+  config: Config = {}
 
   state = {
     previewUrl: '',
@@ -76,12 +76,12 @@ class ImageBlock extends React.Component<Props, State> {
     )
   }
 
-  private handleDragEnter = (event) => {
+  private handleDragEnter = (event: React.DragEvent) => {
     this.setState({isDropZoneActive: true})
     event.preventDefault()
   }
 
-  private handleDragExit = (event) => {
+  private handleDragExit = (event: React.DragEvent) => {
     this.setState({isDropZoneActive: false})
     event.preventDefault()
   }
@@ -131,7 +131,7 @@ class ImageBlock extends React.Component<Props, State> {
   }
 }
 
-const ImageBlockRenderer = ({data}) => data ? (
+const ImageBlockRenderer = ({data}: any) => data ? (
   <Image src={data} alt=""/>
 ) : null
 

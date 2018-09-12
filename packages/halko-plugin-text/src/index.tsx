@@ -1,13 +1,12 @@
 import * as React from 'react'
-import { EditorApi, Block, Entity } from 'halko'
+import { EditorApi, Block, Entity } from '@halko/editor'
 import { EditorState } from 'draft-js'
-import Editor from 'draft-js-plugins-editor'
-import createInlineToolbarPlugin from 'draft-js-inline-toolbar-plugin'
 import { stateToHTML } from 'draft-js-export-html'
 import { stateFromHTML } from 'draft-js-import-html'
 import { EditorWrapper } from './styled'
-import { Parser as HtmlToReactParser } from 'html-to-react'
-import './toolbar.css'
+const Editor = require('draft-js-plugins-editor').default
+const createInlineToolbarPlugin = require('draft-js-inline-toolbar-plugin').default
+const HtmlToReactParser = require('html-to-react').Parser
 
 interface Props {
   entity: Entity
@@ -20,10 +19,18 @@ class TextBlock extends React.Component<Props> {
     ),
   }
   inlineToolbarPlugin: any
+  editor: React.RefObject<{}>;
 
   constructor(props: Props) {
     super(props)
+    this.editor = React.createRef();
     this.inlineToolbarPlugin = createInlineToolbarPlugin()
+  }
+
+  componentDidMount() {
+    if (this.editor) {
+      this.editor.current.focus()
+    }
   }
 
   handleChange = (editorState: EditorState) => {
@@ -37,12 +44,18 @@ class TextBlock extends React.Component<Props> {
     this.props.entity.updateData(html)
   }
 
+  showTooltip = () => {
+    this.props.entity.setTooltipVisibility(true)
+  }
+
   render() {
     return (
       <EditorWrapper>
         <Editor
+          ref={this.editor}
           editorState={this.state.editorState}
           onChange={this.handleChange}
+          onBlur={this.showTooltip}
           plugins={[this.inlineToolbarPlugin]}
         />
 
@@ -55,7 +68,7 @@ class TextBlock extends React.Component<Props> {
 }
 
 const htmlToReactParser = new HtmlToReactParser()
-const TextBlockRenderer = ({data}) => htmlToReactParser.parse(data) || null
+const TextBlockRenderer = ({data}: any) => htmlToReactParser.parse(data) || null
 
 export const HalkoTextBlock = (api: EditorApi, config?: any): Block => ({
   id: 'text',

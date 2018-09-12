@@ -1,9 +1,10 @@
 packages/*/lib
 # See https://help.github.com/ignore-files/ for more about ignoring files.
+/packages/playground
+/packages/*/lib
 
 # dependencies
 node_modules
-playground
 
 # testing
 /coverage

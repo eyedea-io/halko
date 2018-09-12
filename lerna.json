@@ -1,0 +1,8 @@
+{
+  "packages": [
+    "packages/halko",
+    "packages/halko-plugin-image",
+    "packages/halko-plugin-text"
+  ],
+  "version": "0.1.0"
+}
