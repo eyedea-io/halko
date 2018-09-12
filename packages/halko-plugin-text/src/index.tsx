@@ -19,10 +19,18 @@ class TextBlock extends React.Component<Props> {
     ),
   }
   inlineToolbarPlugin: any
+  editor: React.RefObject<{}>;
 
   constructor(props: Props) {
     super(props)
+    this.editor = React.createRef();
     this.inlineToolbarPlugin = createInlineToolbarPlugin()
+  }
+
+  componentDidMount() {
+    if (this.editor) {
+      this.editor.current.focus()
+    }
   }
 
   handleChange = (editorState: EditorState) => {
@@ -44,6 +52,7 @@ class TextBlock extends React.Component<Props> {
     return (
       <EditorWrapper>
         <Editor
+          ref={this.editor}
           editorState={this.state.editorState}
           onChange={this.handleChange}
           onBlur={this.showTooltip}
