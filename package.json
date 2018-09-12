@@ -1,5 +1,10 @@
 {
   "private": true,
+  "scripts": {
+    "bootstrap": "npx lerna bootstrap --hoist",
+    "build": "npx lerna run build",
+    "watch": "npx lerna run --parallel watch"
+  },
   "devDependencies": {
     "@babel/cli": "7.0.0",
     "@babel/core": "7.0.1",

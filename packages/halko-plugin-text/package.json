@@ -8,7 +8,8 @@
   "scripts": {
     "prepublish": "npm run build",
     "prebuild": "rm -rf ./lib",
-    "build": "npx tsc && cp ./src/plugin.css ./lib"
+    "build": "npx tsc && cp ./src/plugin.css ./lib",
+    "watch": "npx tsc --watch"
   },
   "repository": "https://github.com/eyedea/halko/packages/halko-plugin-text",
   "publishConfig": {

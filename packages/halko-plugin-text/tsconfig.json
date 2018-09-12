@@ -1,14 +1,13 @@
 {
   "compilerOptions": {
-    "composite": true,
-    "declaration": true,
-    "sourceMap": true,
     "target": "es5",
     "module": "commonjs",
-    "strict": true,
-    "jsx": "react",
+    "declaration": true,
     "rootDir": "./src",
     "outDir": "./lib",
+    "inlineSourceMap": true,
+    "strict": true,
+    "jsx": "react",
     "moduleResolution": "node",
     "lib": [
       "dom",
