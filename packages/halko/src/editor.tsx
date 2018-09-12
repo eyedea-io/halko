@@ -120,13 +120,15 @@ export class Editor extends React.Component<Props, State> {
       return
     }
 
-    const currentIndex = this.state.entities.findIndex(item => item.id === entity.id)
-    const {entities} = this.state
+    this.setState((state: State) => {
+      const currentIndex = state.entities.findIndex(item => item.id === entity.id)
+      const {entities} = state
 
-    entities.splice(currentIndex, 1)
-    entities.splice(newIndex, 0, entity)
+      entities.splice(currentIndex, 1)
+      entities.splice(newIndex, 0, entity)
 
-    this.setState({entities})
+      return {entities}
+    }, this.triggerOnChange)
   }
 
   private getContent = () => {
