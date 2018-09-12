@@ -3,20 +3,17 @@
   "description": "React components based editor.",
   "version": "0.1.0",
   "main": "lib/index.js",
-  "unpkg": "dist/halko.js",
+  "types": "lib/index.d.ts",
   "author": "Eyedea AS",
   "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/eyedea/halko.git"
-  },
-  "publishConfig": {
-    "access": "public"
-  },
   "scripts": {
     "prepublish": "npm run build",
-    "prebuild": "rm -rf ./dist && rm -rf ./lib",
-    "build": "webpack && npx babel src --out-dir lib --extensions .ts,.tsx"
+    "prebuild": "rm -rf ./lib",
+    "build": "npx tsc"
+  },
+  "repository": "https://github.com/eyedea/halko/packages/halko",
+  "publishConfig": {
+    "access": "public"
   },
   "peerDependencies": {
     "react": "16.5.0",
@@ -24,7 +21,9 @@
   },
   "devDependencies": {
     "@types/react": "16.4.14",
+    "@types/styled-components": "3.0.1",
     "react": "16.5.0",
-    "styled-components": "3.4.6"
+    "styled-components": "3.4.6",
+    "typescript": "3.0.3"
   }
 }

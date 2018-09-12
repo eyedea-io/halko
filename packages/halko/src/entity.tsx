@@ -30,7 +30,7 @@ export class Entity {
     this.api.updateEntity(this)
   }
 
-  setTooltipVisibility = (visible) => {
+  setTooltipVisibility = (visible: boolean) => {
     this.api.setTooltipVisibility(visible)
   }
 
@@ -64,11 +64,5 @@ export class Entity {
 
   remove = () => {
     this.api.removeEntity(this)
-  }
-
-  focus = () => {
-    if (this.ref.current) {
-      this.ref.current.focus()
-    }
   }
 }

@@ -1,3 +1,5 @@
+/packages/playground
+/node_modules
 .babelrc
 .editorconfig
 .gitignore

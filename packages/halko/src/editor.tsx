@@ -51,8 +51,8 @@ export class Editor extends React.Component<Props, State> {
     )
   }
 
-  private setInitialValue = async (initialValue) => {
-    initialValue.forEach(item => {
+  private setInitialValue = async (initialValue: any) => {
+    initialValue.forEach((item: any) => {
       const entity = this.createEntityByBlockName(item.block)
 
       entity.updateData(item.data)
@@ -115,7 +115,7 @@ export class Editor extends React.Component<Props, State> {
     return this.state.entities
   }
 
-  private moveEntity = (entity, newIndex) => {
+  private moveEntity = (entity: Entity, newIndex: number) => {
     if (newIndex > this.state.entities.length) {
       return
     }
