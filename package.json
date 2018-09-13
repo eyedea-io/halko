@@ -7,6 +7,10 @@
     "dev": "cd packages/playground && npm start"
   },
   "devDependencies": {
-    "lerna": "3.3.1"
+    "lerna": "3.3.2",
+    "tslint": "5.11.0",
+    "tslint-eslint-rules": "5.4.0",
+    "tslint-react": "3.6.0",
+    "typescript": "3.0.3"
   }
 }
