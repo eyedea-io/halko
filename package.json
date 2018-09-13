@@ -3,7 +3,8 @@
   "scripts": {
     "bootstrap": "npx lerna bootstrap --hoist",
     "build": "npx lerna run build",
-    "watch": "npx lerna run --parallel watch"
+    "watch": "npx lerna run --parallel watch",
+    "dev": "cd packages/playground && npm start"
   },
   "devDependencies": {
     "lerna": "3.3.1"
