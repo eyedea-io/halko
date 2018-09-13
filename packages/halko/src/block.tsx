@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Entity } from './entity'
+import {Entity} from './entity'
 
 export interface Block {
   id: string

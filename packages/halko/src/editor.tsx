@@ -1,11 +1,11 @@
 import * as React from 'react'
-import { EditorPlugin } from './plugin'
-import { Toolbar } from './toolbar'
-import { Layout } from './styled'
-import { EntityList } from './entity-list'
-import { Entity } from './entity'
-import { EditorApi } from './api'
-import { Block } from './block'
+import {EditorApi} from './api'
+import {Block} from './block'
+import {Entity} from './entity'
+import {EntityList} from './entity-list'
+import {EditorPlugin} from './plugin'
+import {Layout} from './styled'
+import {Toolbar} from './toolbar'
 
 interface Props {
   plugins: Array<[EditorPlugin, any] | EditorPlugin>
@@ -27,7 +27,7 @@ export class Editor extends React.Component<Props, State> {
   state: State = {
     showTooltip: true,
     wasInitialised: false,
-    entities: []
+    entities: [],
   }
 
   async componentDidMount() {
@@ -61,7 +61,7 @@ export class Editor extends React.Component<Props, State> {
 
   private setTooltipVisibility = async (visible: boolean) => {
     this.setState({
-      showTooltip: visible
+      showTooltip: visible,
     })
   }
 
@@ -85,7 +85,7 @@ export class Editor extends React.Component<Props, State> {
     const entity = new Entity(this.api, {block})
 
     const changeState = (state: State) => ({
-      entities: state.entities.concat([entity])
+      entities: state.entities.concat([entity]),
     })
 
     this.setState(changeState, this.triggerOnChange)
@@ -95,7 +95,7 @@ export class Editor extends React.Component<Props, State> {
 
   private updateEntity = (entity: Entity) => {
     const changeState = (state: State) => ({
-      entities: state.entities.map(item => item.id === entity.id ? entity : item)
+      entities: state.entities.map(item => item.id === entity.id ? entity : item),
     })
 
     this.setState(changeState, this.triggerOnChange)
@@ -105,7 +105,7 @@ export class Editor extends React.Component<Props, State> {
 
   private removeEntity = (entity: Entity) => {
     const changeState = (state: State) => ({
-      entities: state.entities.filter(item => item.id !== entity.id)
+      entities: state.entities.filter(item => item.id !== entity.id),
     })
 
     this.setState(changeState, this.triggerOnChange)
@@ -134,7 +134,7 @@ export class Editor extends React.Component<Props, State> {
   private getContent = () => {
     return this.state.entities.map(item => ({
       block: item.block.id,
-      data: item.data
+      data: item.data,
     }))
   }
 
@@ -146,7 +146,7 @@ export class Editor extends React.Component<Props, State> {
       removeEntity: this.removeEntity,
       updateEntity: this.updateEntity,
       setTooltipVisibility: this.setTooltipVisibility,
-      moveEntity: this.moveEntity
+      moveEntity: this.moveEntity,
     }
   }
 

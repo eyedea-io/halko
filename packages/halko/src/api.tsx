@@ -1,5 +1,5 @@
-import { Entity } from './entity'
-import { Block } from './block'
+import {Block} from './block'
+import {Entity} from './entity'
 
 export interface EditorApi {
   getContent: () => any

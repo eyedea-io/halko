@@ -1,6 +1,6 @@
 import * as React from 'react'
-import { ToolbarInner, ToolbarItem } from './styled'
-import { Block } from '../block'
+import {Block} from '../block'
+import {ToolbarInner, ToolbarItem} from './styled'
 
 interface Props {
   blocks: Block[]

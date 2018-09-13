@@ -1,7 +1,7 @@
 /* tslint:disable max-line-length */
+import {Block, EditorApi, Entity} from '@halko/editor'
 import * as React from 'react'
-import { EditorApi, Block, Entity } from '@halko/editor'
-import { ImageInput, ImagePreview, ImageWrapper, ProgressBar, ProgressBarFill, Image, ImageDropArea } from './styled'
+import {Image, ImageDropArea, ImageInput, ImagePreview, ImageWrapper, ProgressBar, ProgressBarFill} from './styled'
 
 interface Config {
   handleUpload?: (file: File, config: {
@@ -26,7 +26,7 @@ class ImageBlock extends React.Component<Props, State> {
   state = {
     previewUrl: '',
     isDropZoneActive: false,
-    uploadProgress: -1
+    uploadProgress: -1,
   }
 
   componentDidMount() {
@@ -46,7 +46,7 @@ class ImageBlock extends React.Component<Props, State> {
           <ProgressBar progress={this.state.uploadProgress}>
             <ProgressBarFill
               style={{
-                width: `${this.state.uploadProgress}%`
+                width: `${this.state.uploadProgress}%`,
               }}
             />
           </ProgressBar>
@@ -96,7 +96,7 @@ class ImageBlock extends React.Component<Props, State> {
     const {handleUpload} = this.config
 
     if (files && files[0]) {
-      var reader = new FileReader()
+      const reader = new FileReader()
 
       reader.onload = (event: any) => {
         this.setState({previewUrl: event.target && event.target.result})
@@ -113,7 +113,7 @@ class ImageBlock extends React.Component<Props, State> {
           const uploadProgress = Math.round((progressEvent.loaded * 100) / progressEvent.total)
 
           this.setState({uploadProgress})
-        }
+        },
       })
 
       this.props.entity.updateData(url)
@@ -143,7 +143,7 @@ export const HalkoImageBlock = (api?: EditorApi, config?: any): Block => ({
   isLeaf: true,
   config,
   component: ImageBlock,
-  renderer: ImageBlockRenderer
+  renderer: ImageBlockRenderer,
 })
 
 /* <Image

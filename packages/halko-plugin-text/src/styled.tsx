@@ -1,5 +1,5 @@
-import styled from 'styled-components'
 import * as React from 'react'
+import styled from 'styled-components'
 
 export const EditorWrapper = styled.div`
   margin: 16px 0;

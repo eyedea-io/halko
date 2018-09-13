@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { EditorPlugin } from './plugin'
+import {EditorPlugin} from './plugin'
 
 interface Props {
   plugins: Array<EditorPlugin | [EditorPlugin, any]>

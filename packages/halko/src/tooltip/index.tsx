@@ -1,7 +1,7 @@
 import * as React from 'react'
-import { TooltipWrapper, TooltipInner, TooltipItem } from './styled'
-import { RemoveIcon, ChevronUp, ChevronDown } from './icons'
-import { Entity } from '../entity'
+import {Entity} from '../entity'
+import {ChevronDown, ChevronUp, RemoveIcon} from './icons'
+import {TooltipInner, TooltipItem, TooltipWrapper} from './styled'
 
 interface Props {
   entity: Entity

@@ -1,7 +1,7 @@
 import * as React from 'react'
-import { Entity } from './entity'
-import { Tooltip } from './tooltip'
-import { TooltipContainer } from './tooltip/styled'
+import {Entity} from './entity'
+import {Tooltip} from './tooltip'
+import {TooltipContainer} from './tooltip/styled'
 
 export interface Props {
   entities: Entity[]

@@ -1,6 +1,6 @@
 import * as React from 'react'
-import { EditorApi } from './api'
-import { Block } from './block'
+import {EditorApi} from './api'
+import {Block} from './block'
 
 export class Entity {
   api: EditorApi

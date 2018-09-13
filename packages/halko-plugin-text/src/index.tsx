@@ -1,9 +1,9 @@
+import {Block, EditorApi, Entity} from '@halko/editor'
+import {EditorState} from 'draft-js'
+import {stateToHTML} from 'draft-js-export-html'
+import {stateFromHTML} from 'draft-js-import-html'
 import * as React from 'react'
-import { EditorApi, Block, Entity } from '@halko/editor'
-import { EditorState } from 'draft-js'
-import { stateToHTML } from 'draft-js-export-html'
-import { stateFromHTML } from 'draft-js-import-html'
-import { EditorWrapper } from './styled'
+import {EditorWrapper} from './styled'
 const Editor = require('draft-js-plugins-editor').default
 const createInlineToolbarPlugin = require('draft-js-inline-toolbar-plugin').default
 const HtmlToReactParser = require('html-to-react').Parser
@@ -23,7 +23,7 @@ class TextBlock extends React.Component<Props> {
 
   constructor(props: Props) {
     super(props)
-    this.editor = React.createRef();
+    this.editor = React.createRef()
     this.inlineToolbarPlugin = createInlineToolbarPlugin()
   }
 
@@ -78,5 +78,5 @@ export const HalkoTextBlock = (api: EditorApi, config?: any): Block => ({
   data: '',
   config,
   component: TextBlock,
-  renderer: TextBlockRenderer
+  renderer: TextBlockRenderer,
 })
