@@ -9,6 +9,7 @@ const createInlineToolbarPlugin = require('draft-js-inline-toolbar-plugin').defa
 const HtmlToReactParser = require('html-to-react').Parser
 
 interface Props {
+  api: EditorApi
   entity: Entity
 }
 
@@ -38,14 +39,16 @@ class TextBlock extends React.Component<Props> {
 
     const html = stateToHTML(editorState.getCurrentContent())
     const selection = editorState.getSelection()
-    const showTooltip = selection.getAnchorOffset() === selection.getFocusOffset()
+    const hasNoSelection = selection.getAnchorOffset() === selection.getFocusOffset()
+    const isNotFocused = !selection.getHasFocus()
+    const showTooltip =  hasNoSelection || isNotFocused
 
-    this.props.entity.setTooltipVisibility(showTooltip)
+    this.props.api.setTooltipVisibility(showTooltip)
     this.props.entity.updateData(html)
   }
 
   showTooltip = () => {
-    this.props.entity.setTooltipVisibility(true)
+    this.props.api.setTooltipVisibility(true)
   }
 
   render() {

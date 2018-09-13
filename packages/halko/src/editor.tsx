@@ -45,7 +45,7 @@ export class Editor extends React.Component<Props, State> {
   render() {
     return (
       <Layout>
-        <EntityList entities={this.state.entities} showTooltip={this.state.showTooltip} />
+        <EntityList entities={this.state.entities} showTooltip={this.state.showTooltip} api={this.api} />
         <Toolbar blocks={this.blocks} createEntity={this.createEntity} />
       </Layout>
     )

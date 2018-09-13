@@ -1,4 +1,5 @@
 import * as React from 'react'
+import {EditorApi} from './api'
 import {Entity} from './entity'
 
 export interface Block {
@@ -14,6 +15,7 @@ export interface Block {
     data: any
   }>
   component: React.ComponentType<{
+    api: EditorApi
     entity: Entity
     config?: any
   }>
