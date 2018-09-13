@@ -1,18 +1,7 @@
 {
+  "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "target": "es5",
-    "module": "commonjs",
-    "declaration": true,
-    "rootDir": "./src",
     "outDir": "./lib",
-    "inlineSourceMap": true,
-    "strict": true,
-    "jsx": "react",
-    "moduleResolution": "node",
-    "lib": [
-      "dom",
-      "es2015",
-      "es2016.array.include"
-    ]
+    "rootDir": "./src",
   }
 }

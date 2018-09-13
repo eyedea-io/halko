@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "module": "commonjs",
+    "declaration": true,
+    "outDir": "./lib",
+    "inlineSourceMap": true,
+    "strict": true,
+    "jsx": "react",
+    "moduleResolution": "node",
+    "lib": [
+      "dom",
+      "es2015",
+      "es2016.array.include"
+    ]
+  }
+}
