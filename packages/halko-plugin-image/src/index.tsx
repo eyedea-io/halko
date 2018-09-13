@@ -10,6 +10,7 @@ interface Config {
 }
 
 interface Props {
+  api: EditorApi
   entity: Entity
   config?: Config
 }
