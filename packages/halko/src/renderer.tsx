@@ -4,7 +4,7 @@ import {EditorPlugin} from './plugin'
 interface Props {
   plugins: Array<EditorPlugin | [EditorPlugin, any]>
   value: {
-    block: string
+    plugin: string
     data: any
   }[]
 }
@@ -14,7 +14,7 @@ export class Renderer extends React.Component<Props> {
     return (
       <div>
         {this.props.value.map(item => (
-          this.renderBlock(item.block, item.data)
+          this.renderBlock(item.plugin, item.data)
         ))}
       </div>
     )

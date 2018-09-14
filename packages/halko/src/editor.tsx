@@ -10,7 +10,7 @@ import {Toolbar} from './toolbar'
 interface Props {
   plugins: Array<[EditorPlugin, any] | EditorPlugin>
   initialValue?: {
-    block: string
+    plugin: string
     data: any
   }[]
   onInit?: (api: EditorApi) => void
@@ -53,7 +53,7 @@ export class Editor extends React.Component<Props, State> {
 
   private setInitialValue = async (initialValue: any) => {
     initialValue.forEach((item: any) => {
-      const entity = this.createEntityByBlockName(item.block)
+      const entity = this.createEntityByBlockName(item.plugin)
 
       entity.updateData(item.data)
     })
@@ -133,7 +133,7 @@ export class Editor extends React.Component<Props, State> {
 
   private getContent = () => {
     return this.state.entities.map(item => ({
-      block: item.block.id,
+      plugin: item.block.id,
       data: item.data,
     }))
   }

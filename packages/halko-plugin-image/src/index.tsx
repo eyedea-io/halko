@@ -1,7 +1,7 @@
 /* tslint:disable max-line-length */
 import {Block, EditorApi, Entity} from '@halko/editor'
 import * as React from 'react'
-import {Image, ImageDropArea, ImageInput, ImagePreview, ImageWrapper, ProgressBar, ProgressBarFill} from './styled'
+import {ImageDropArea, ImageInput, ImagePreview, ImageRender, ImageWrapper, ProgressBar, ProgressBarFill} from './styled'
 
 interface Config {
   handleUpload?: (file: File, config: {
@@ -133,10 +133,10 @@ class ImageBlock extends React.Component<Props, State> {
 }
 
 const ImageBlockRenderer = ({data}: any) => data ? (
-  <Image src={data} alt=""/>
+  <ImageRender src={data} alt=""/>
 ) : null
 
-export const HalkoImageBlock = (api?: EditorApi, config?: any): Block => ({
+export const Image = (api?: EditorApi, config?: any): Block => ({
   id: 'image',
   label: 'Image',
   title: 'Add image from disc',

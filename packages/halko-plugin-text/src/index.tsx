@@ -73,7 +73,7 @@ class TextBlock extends React.Component<Props> {
 const htmlToReactParser = new HtmlToReactParser()
 const TextBlockRenderer = ({data}: any) => htmlToReactParser.parse(data) || null
 
-export const HalkoTextBlock = (api: EditorApi, config?: any): Block => ({
+export const Text = (api: EditorApi, config?: any): Block => ({
   id: 'text',
   label: 'text',
   title: 'Add rich text block',
