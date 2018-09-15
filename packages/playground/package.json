@@ -4,8 +4,8 @@
     "@halko/editor": "0.1.0",
     "@halko/plugin-text": "0.1.0",
     "@halko/plugin-image": "0.1.0",
-    "react": "16.5.0",
-    "react-dom": "16.5.0",
+    "react": "16.5.1",
+    "react-dom": "16.5.1",
     "react-scripts-ts": "2.17.0"
   },
   "scripts": {

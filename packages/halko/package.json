@@ -17,13 +17,13 @@
     "access": "public"
   },
   "peerDependencies": {
-    "react": "16.5.0",
+    "react": "16.5.1",
     "styled-components": "3.4.6"
   },
   "devDependencies": {
     "@types/react": "16.4.14",
     "@types/styled-components": "3.0.1",
-    "react": "16.5.0",
+    "react": "16.5.1",
     "styled-components": "3.4.6"
   }
 }

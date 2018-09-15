@@ -17,7 +17,7 @@
   },
   "peerDependencies": {
     "@halko/editor": "0.1.0",
-    "react": "16.5.0",
+    "react": "16.5.1",
     "styled-components": "3.4.6"
   },
   "dependencies": {
@@ -32,7 +32,7 @@
     "@halko/editor": "0.1.0",
     "@types/draft-js": "0.10.25",
     "@types/react": "16.4.14",
-    "react": "16.5.0",
+    "react": "16.5.1",
     "styled-components": "3.4.6"
   }
 }
