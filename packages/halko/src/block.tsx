@@ -14,9 +14,5 @@ export interface Block {
   renderer?: React.ComponentType<{
     data: any
   }>
-  component: React.ComponentType<{
-    api: EditorApi
-    entity: Entity
-    config?: any
-  }>
+  component: React.ComponentType<any>
 }

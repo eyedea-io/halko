@@ -6,7 +6,7 @@ export interface EditorApi {
   getEntities: () => Entity[]
   setTooltipVisibility: (visible: boolean) => void
   moveEntity: (entity: Entity, newIndex: number) => void
-  createEntity: (block: Block) => Entity
+  // createEntity: (block: Block) => Entity
   updateEntity: (entity: Entity) => Entity
   removeEntity: (entity: Entity) => void
 }

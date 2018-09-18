@@ -2,20 +2,24 @@ import * as React from 'react'
 import {EditorApi} from './api'
 import {Block} from './block'
 
-export class Entity {
+interface Props {
   api: EditorApi
-  id: string
-  data: any
+  config: any
+  entity: any
+}
+
+export class Entity extends React.Component<Props, any> {
+  api: EditorApi
   block: Block
   ref: React.RefObject<HTMLElement>
 
-  constructor(api: EditorApi, options: {
-    block: Block
-  }) {
-    this.api = api
+  constructor(props: any) {
+    super(props)
+
+    this.api = props.api
     this.id = Math.random().toString(32),
-    this.data = options.block.data
-    this.block = options.block
+    this.data = props.options.block.data
+    this.block = props.options.block
     this.ref = React.createRef()
   }
 
@@ -24,11 +28,6 @@ export class Entity {
   get isLeaf() { return this.block.isLeaf }
   get canBeMovedUp() { return !!this.getSiblings().prev }
   get canBeMovedDown() { return !!this.getSiblings().next }
-
-  updateData = (newData: any) => {
-    this.data = newData
-    this.api.updateEntity(this)
-  }
 
   moveUp = () => {
     const entities = this.api.getEntities()
@@ -56,6 +55,11 @@ export class Entity {
 
   isSameType = (entity: Entity) => {
     return this.block.id === entity.block.id
+  }
+
+  update = (newData: any) => {
+    // this.data = newData
+    this.api.updateEntity(this)
   }
 
   remove = () => {

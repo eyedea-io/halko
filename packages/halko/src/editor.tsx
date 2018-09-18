@@ -23,7 +23,7 @@ interface State {
   entities: Entity[]
 }
 
-export class Editor extends React.Component<Props, State> {
+export class Editor extends React.PureComponent<Props, State> {
   state: State = {
     showTooltip: true,
     wasInitialised: false,
@@ -68,7 +68,7 @@ export class Editor extends React.Component<Props, State> {
     initialValue.forEach((item: any) => {
       const entity = this.createEntityByBlockName(item.plugin)
 
-      entity.updateData(item.data)
+      // entity.updateData(item.data)
     })
   }
 
@@ -95,15 +95,15 @@ export class Editor extends React.Component<Props, State> {
   }
 
   private createEntity = (block: Block) => {
-    const entity = new Entity(this.api, {block})
+    // const entity = new Entity(this.api, {block})
 
-    const changeState = (state: State) => ({
-      entities: state.entities.concat([entity]),
-    })
+    // const changeState = (state: State) => ({
+    //   entities: state.entities.concat([entity]),
+    // })
 
-    this.setState(changeState, this.triggerOnChange)
+    // this.setState(changeState, this.triggerOnChange)
 
-    return entity
+    // return entity
   }
 
   private updateEntity = (entity: Entity) => {
@@ -155,7 +155,7 @@ export class Editor extends React.Component<Props, State> {
     return {
       getContent: this.getContent,
       getEntities: this.getEntities,
-      createEntity: this.createEntity,
+      // createEntity: this.createEntity,
       removeEntity: this.removeEntity,
       updateEntity: this.updateEntity,
       setTooltipVisibility: this.setTooltipVisibility,

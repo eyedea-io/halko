@@ -12,7 +12,6 @@ interface Config {
 interface Props {
   api: EditorApi
   entity: Entity
-  config?: Config
 }
 
 interface State {
@@ -21,7 +20,7 @@ interface State {
   uploadProgress: number
 }
 
-class ImageBlock extends React.Component<Props, State> {
+class ImageBlock extends Entity {
   config: Config = {}
 
   state = {
@@ -30,8 +29,16 @@ class ImageBlock extends React.Component<Props, State> {
     uploadProgress: -1,
   }
 
-  componentDidMount() {
-    this.config = this.props.config || {}
+  shouldComponentUpdate(nextProps: Props) {
+    if (this.id !== nextProps.entity.id) {
+      return true
+    }
+
+    if (JSON.stringify(this.data) !== JSON.stringify(nextProps.entity.data)) {
+      return true
+    }
+
+    return false
   }
 
   handleTitleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -40,17 +47,16 @@ class ImageBlock extends React.Component<Props, State> {
 
   render() {
     const {previewUrl} = this.state
-    const {entity} = this.props
-    const url = entity.data.src || previewUrl
-    const title = entity.data.title || ''
+    const url = this.data.src || previewUrl
+    const title = this.data.title || ''
 
     if (url) {
       return (
         <ImageWrapper>
           <ImagePreviewWrapper>
-            <ImagePreview innerRef={entity.ref} src={url} />
+            <ImagePreview innerRef={this.ref} src={url} />
             <ProgressBar progress={this.state.uploadProgress}>
-              <ProgressBarFill style={{ width: `${this.state.uploadProgress}%` }} />
+              <ProgressBarFill style={{width: `${this.state.uploadProgress}%`}} />
             </ProgressBar>
           </ImagePreviewWrapper>
 
@@ -76,7 +82,7 @@ class ImageBlock extends React.Component<Props, State> {
         <div>
           Drop your image here or <a>click here</a> to browse disc.
         </div>
-        <ImageInput innerRef={entity.ref} onChange={this.handleChange} />
+        <ImageInput innerRef={this.ref} onChange={this.handleChange} />
       </ImageDropArea>
     )
   }
@@ -125,8 +131,8 @@ class ImageBlock extends React.Component<Props, State> {
   }
 
   private updateData = (data: any) => {
-    this.props.entity.updateData({
-      ...this.props.entity.data,
+    this.update({
+      ...this.data,
       ...data,
     })
   }
@@ -163,32 +169,3 @@ export const Image = (api?: EditorApi, config?: any): Block => ({
   component: ImageBlock,
   renderer: ImageBlockRenderer,
 })
-
-/* <Image
-  src="http://via.placeholder.com/350x150"
-  innerRef={entity.ref}
-  onKeyDown={(e: React.KeyboardEvent<HTMLImageElement>) => {
-    const {prev, next} = entity.getSiblings()
-
-    if (e.keyCode === KEY_CODES.backspace) {
-      if (prev) { prev.focus() }
-      if (!prev && next) { next.focus() }
-      entity.remove()
-      e.preventDefault()
-    }
-    if (e.keyCode === KEY_CODES.down) {
-      if (next) { next.focus() }
-      e.preventDefault()
-    }
-    if (e.keyCode === KEY_CODES.up) {
-      if (prev) { prev.focus() }
-      e.preventDefault()
-    }
-    if (e.keyCode === KEY_CODES.delete) {
-      if (next) { next.focus() }
-      if (!next && prev) { prev.focus() }
-      entity.remove()
-      e.preventDefault()
-    }
-  }}
-  /> */

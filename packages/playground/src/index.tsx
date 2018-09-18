@@ -1,15 +1,15 @@
 import * as React from 'react'
 import { render } from 'react-dom'
 
-import { Editor, Renderer } from '@halko/editor'
+import { Editor } from '@halko/editor'
 import { Image } from '@halko/plugin-image'
-import { Text } from '@halko/plugin-text'
+// import { Text } from '@halko/plugin-text'
 
 import '../node_modules/@halko/plugin-text/lib/plugin.css'
 import './index.css'
 
 const PLUGINS: any = [
-  Text,
+  // Text,
   [Image, {
     handleUpload: async (file: File, {onUploadProgress}: any) => {
       const formData = new FormData()
@@ -40,12 +40,12 @@ const PLUGINS: any = [
 class App extends React.Component<{}, {value: any}> {
   public state = {
     value: [
-      {plugin: 'text', data: 'Initial data of block number 1'},
+      // {plugin: 'text', data: 'Initial data of block number 1'},
       {plugin: 'image', data: {src: 'https://placekitten.com/800/600'}},
-      {plugin: 'image', data: ''},
-      {plugin: 'text', data: 'Another text block with data'},
-      {plugin: 'text', data: ''},
-      {plugin: 'text', data: 'Block after an empty block'},
+      // {plugin: 'image', data: ''},
+      // {plugin: 'text', data: 'Another text block with data'},
+      // {plugin: 'text', data: ''},
+      // {plugin: 'text', data: 'Block after an empty block'},
     ]
   }
 
@@ -61,21 +61,21 @@ class App extends React.Component<{}, {value: any}> {
           onChange={this.handleChange}
         />
 
-        <h1>Renderer: </h1>
-        <Renderer value={this.state.value} plugins={PLUGINS} />
+        {/* <h1>Renderer: </h1>
+        <Renderer value={this.state.value} plugins={PLUGINS} /> */}
       </div>
     )
   }
 
   private handleInit = (api: any) => {
-    api.createEntity(Text(api))
+    // api.createEntity(Text(api))
   }
 
   private handleChange = (api: any) => {
     this.setState({value: api.getContent()})
 
     // tslint:disable-next-line:no-console
-    console.log(this.state.value)
+    // console.log(this.state.value)
   }
 }
 
