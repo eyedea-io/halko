@@ -29,6 +29,19 @@ export class Editor extends React.Component<Props, State> {
     wasInitialised: false,
     entities: [],
   }
+  blocks: Block[]
+
+  constructor (props: Props) {
+    super(props)
+
+    this.blocks = props.plugins.map(plugin => {
+      if (Array.isArray(plugin)) {
+        return plugin[0](this.api, plugin[1])
+      }
+
+      return plugin(this.api)
+    })
+  }
 
   async componentDidMount() {
     if (this.props.initialValue) {
@@ -148,15 +161,5 @@ export class Editor extends React.Component<Props, State> {
       setTooltipVisibility: this.setTooltipVisibility,
       moveEntity: this.moveEntity,
     }
-  }
-
-  private get blocks() {
-    return this.props.plugins.map(plugin => {
-      if (Array.isArray(plugin)) {
-        return plugin[0](this.api, plugin[1])
-      }
-
-      return plugin(this.api)
-    })
   }
 }
