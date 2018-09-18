@@ -7,7 +7,7 @@ interface Props {
   createEntity: (block: Block) => void
 }
 
-export class Toolbar extends React.Component<Props> {
+export class Toolbar extends React.PureComponent<Props> {
   render() {
     const {blocks, createEntity} = this.props
 
