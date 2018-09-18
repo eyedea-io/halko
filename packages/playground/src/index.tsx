@@ -41,7 +41,7 @@ class App extends React.Component<{}, {value: any}> {
   public state = {
     value: [
       {plugin: 'text', data: 'Initial data of block number 1'},
-      {plugin: 'image', data: 'https://placekitten.com/800/600'},
+      {plugin: 'image', data: {src: 'https://placekitten.com/800/600'}},
       {plugin: 'image', data: ''},
       {plugin: 'text', data: 'Another text block with data'},
       {plugin: 'text', data: ''},
@@ -73,6 +73,9 @@ class App extends React.Component<{}, {value: any}> {
 
   private handleChange = (api: any) => {
     this.setState({value: api.getContent()})
+
+    // tslint:disable-next-line:no-console
+    console.log(this.state.value)
   }
 }
 

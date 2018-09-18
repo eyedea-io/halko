@@ -1,7 +1,7 @@
 /* tslint:disable max-line-length */
 import {Block, EditorApi, Entity} from '@halko/editor'
 import * as React from 'react'
-import {ImageDropArea, ImageInput, ImagePreview, ImageRender, ImageWrapper, ProgressBar, ProgressBarFill} from './styled'
+import {ImageDropArea, ImageInput, ImagePreview, ImagePreviewWrapper, ImageRender, ImageTitleInput, ImageWrapper, ProgressBar, ProgressBarFill} from './styled'
 
 interface Config {
   handleUpload?: (file: File, config: {
@@ -34,23 +34,27 @@ class ImageBlock extends React.Component<Props, State> {
     this.config = this.props.config || {}
   }
 
+  handleTitleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    this.updateData({title: e.currentTarget.value})
+  }
+
   render() {
     const {previewUrl} = this.state
     const {entity} = this.props
-    const url = entity.data || previewUrl
+    const url = entity.data.src || previewUrl
+    const title = entity.data.title || ''
 
     if (url) {
       return (
         <ImageWrapper>
-          <ImagePreview innerRef={entity.ref} src={url} />
+          <ImagePreviewWrapper>
+            <ImagePreview innerRef={entity.ref} src={url} />
+            <ProgressBar progress={this.state.uploadProgress}>
+              <ProgressBarFill style={{ width: `${this.state.uploadProgress}%` }} />
+            </ProgressBar>
+          </ImagePreviewWrapper>
 
-          <ProgressBar progress={this.state.uploadProgress}>
-            <ProgressBarFill
-              style={{
-                width: `${this.state.uploadProgress}%`,
-              }}
-            />
-          </ProgressBar>
+          <ImageTitleInput value={title} onChange={this.handleTitleChange} />
         </ImageWrapper>
       )
     }
@@ -89,7 +93,6 @@ class ImageBlock extends React.Component<Props, State> {
 
   private handleDrop = (event: React.DragEvent<HTMLLabelElement>) => {
     event.preventDefault()
-
     this.upload(event.dataTransfer.files)
   }
 
@@ -109,7 +112,7 @@ class ImageBlock extends React.Component<Props, State> {
     if (typeof handleUpload === 'function' && files) {
       this.setState({uploadProgress: 0})
 
-      const url = await handleUpload(files[0], {
+      const src = await handleUpload(files[0], {
         onUploadProgress: (progressEvent: ProgressEvent) => {
           const uploadProgress = Math.round((progressEvent.loaded * 100) / progressEvent.total)
 
@@ -117,8 +120,15 @@ class ImageBlock extends React.Component<Props, State> {
         },
       })
 
-      this.props.entity.updateData(url)
+      this.updateData({src})
     }
+  }
+
+  private updateData = (data: any) => {
+    this.props.entity.updateData({
+      ...this.props.entity.data,
+      ...data,
+    })
   }
 
   private handleChange = async (e: any) => {
@@ -132,8 +142,15 @@ class ImageBlock extends React.Component<Props, State> {
   }
 }
 
-const ImageBlockRenderer = ({data}: any) => data ? (
-  <ImageRender src={data} alt=""/>
+const ImageBlockRenderer = ({data = {}}: any) => data ? (
+  <figure>
+    <ImageRender src={data.src} alt={data.title} />
+    {data.title && (
+      <figcaption>
+        {data.title}
+      </figcaption>
+    )}
+  </figure>
 ) : null
 
 export const Image = (api?: EditorApi, config?: any): Block => ({

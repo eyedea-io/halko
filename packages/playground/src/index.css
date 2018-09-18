@@ -4,3 +4,14 @@ body {
   padding: 32px;
   font-family: sans-serif;
 }
+
+figure {
+  margin: 0;
+}
+
+figcaption {
+  font-style: italic;
+  font-size: 14px;
+  text-align: center;
+  margin-top: 8px;
+}

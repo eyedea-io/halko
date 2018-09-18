@@ -7,14 +7,16 @@ export const ImageRender = styled.img`
 export const ImagePreview = styled.img.attrs({
   tabIndex: 0,
 })`
-  margin: 16px 0;
   width: 100%;
   display: block;
 `
 
 export const ImageWrapper = styled.div`
-  position: relative;
   margin: 16px 0;
+`
+
+export const ImagePreviewWrapper = styled.div`
+  position: relative;
 `
 
 export const ImageInput = styled.input.attrs({
@@ -91,4 +93,25 @@ export const ProgressBarFill = styled.div`
 
   background: #3AA952;
   box-shadow: 0px 0px 4px #3DB057;
+`
+
+export const ImageTitleInput = styled.textarea.attrs({
+  placeholder: 'Type photo title...',
+  rows: 1,
+})<React.TextareaHTMLAttributes<{}>>`
+  display: block;
+  width: 100%;
+  border: 1px solid #E6E8EC;
+  border-top: none;
+  box-sizing: border-box;
+  font-size: 14px;
+  font-family: inherit;
+  resize: none;
+  padding: 16px 8px;
+  background-color: #f5f5f5;
+  text-align: center;
+
+  &:focus {
+    outline: none;
+  }
 `
