@@ -8,7 +8,7 @@ interface Props {
   config: any
 }
 
-export class Tooltip extends React.Component<Props> {
+export class Tooltip extends React.PureComponent<Props> {
   render() {
     const {entity} = this.props
 
